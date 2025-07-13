@@ -19,13 +19,12 @@ type PostTaskPayload struct {
 func SaveTask(ctx *gin.Context){
 
 	var payload PostTaskPayload
-
-
-	
 	if err := ctx.ShouldBindJSON(&payload); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error":"Unable to read the body"})
 		return
+		
 	}
+	
 
 
 	var id int
@@ -35,9 +34,9 @@ func SaveTask(ctx *gin.Context){
 	err := db.DB.QueryRow(context.Background(), query, payload.Title, payload.Description, payload.Status).Scan(&id)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": true, "msg":err.Error()})
-		return
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": true, "msg": err.Error()})
 	}
 	ctx.JSON(http.StatusOK, gin.H{"error": false, "msg": id})		
+	
 
 }

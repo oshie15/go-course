@@ -10,16 +10,17 @@ import (
 )
 
 func main() {
-	handler := routes.MountRoutes()
-	
-	
+	// Load routes
+	handler := routes.MounteRoutes()
 
+	// Connect to DB
 	db.InitDB()
+	defer db.DB.Close(context.Background())
+
+	// Start server
 	server := &http.Server{
-		Addr: config.Config.AppPort,
+		Addr:    config.Config.AppPort,
 		Handler: handler,
 	}
-	defer db.DB.Close(context.Background())
 	server.ListenAndServe()
-
 }

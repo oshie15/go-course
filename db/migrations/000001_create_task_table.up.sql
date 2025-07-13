@@ -5,3 +5,6 @@ CREATE TABLE tasks (
     status VARCHAR(50) DEFAULT 'pending',
     created_at TIMESTAMP(0) WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
+
+
+
